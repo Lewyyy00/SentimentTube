@@ -7,7 +7,7 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 
 
-def get_comments(video_id, max_results=50):
+def get_comments(video_id, max_results=100):
 
     if API_KEY:
         pass
@@ -27,11 +27,9 @@ def get_comments(video_id, max_results=50):
     
     comments = []
     for item in response['items']:
+       
         comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
         comments.append(comment)
     
     return comments
 
-video_id = 'tTIYVQ0U_as'
-comments = get_comments(video_id)
-print(comments)
