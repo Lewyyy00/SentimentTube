@@ -2,13 +2,14 @@ import api
 import re 
 import emoji
 from urllib.parse import urlparse
+from nltk.corpus import stopwords
 
 class DataCleaning:
 
     def __init__(self, website):
         self.website = website
         video_id = self.get_video_id()
-        self.data = api.get_comments(video_id)
+        self.data = api.get_video_comments(video_id)
 
 
     def get_video_id(self):
@@ -32,4 +33,4 @@ class DataCleaning:
         return clean_data
     
 
-x = DataCleaning('https://www.youtube.com/watch?v=GPUZDIP3dmA').clean_data()
+x = DataCleaning('').clean_data()
