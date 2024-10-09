@@ -3,6 +3,12 @@ import re
 import emoji
 from urllib.parse import urlparse
 from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize, sent_tokenize
+
+import nltk
+nltk.download('punkt_tab')
+nltk.download('stopwords')
+nltk.download('punkt')
 
 class DataCleaning:
 
@@ -31,6 +37,23 @@ class DataCleaning:
             clean_data.append(preprocesed_text)
 
         return clean_data
+
+    def sentence_tokenize(self):
+        data = self.clean_data()
+        filtered_sentences = []
+
+        for sentence in data:
+            words = word_tokenize(sentence)
+           
+            filtered_sentence = ' '.join([word for word in words if word not in set(stopwords.words("english"))]) 
+            filtered_sentences.append(filtered_sentence)
+
+        for i in filtered_sentences:
+            if len(i) == 0:
+                filtered_sentences.remove(i)
+
+        return filtered_sentences
     
 
-x = DataCleaning('').clean_data()
+x = DataCleaning('https://www.youtube.com/watch?v=5eqRuVp65eY').sentence_tokenize()
+print(x)
