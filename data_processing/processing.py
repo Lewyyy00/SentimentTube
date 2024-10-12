@@ -5,7 +5,6 @@ from urllib.parse import urlparse
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.stem import WordNetLemmatizer
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 import nltk
 nltk.download('punkt_tab')
@@ -62,15 +61,6 @@ class DataCleaning:
 
         return filtered_sentences
     
-    def vectorize_data(self):
-        sentences = self.sentence_tokenize()
-
-        vectorizer = TfidfVectorizer(max_features=5000)
-        tfidf_matrix = vectorizer.fit_transform(sentences)
-        
-        return tfidf_matrix
-
-    
-
-x = DataCleaning('https://www.youtube.com/watch?v=5eqRuVp65eY').vectorize_data()
+  
+x = DataCleaning('https://www.youtube.com/watch?v=5eqRuVp65eY').sentence_tokenize()
 print(x)
