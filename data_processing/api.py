@@ -57,5 +57,3 @@ def get_video_details(video_id):
     else:
         return None
     
-video_details = get_video_details('')
-print(video_details)

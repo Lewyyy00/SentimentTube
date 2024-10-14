@@ -1,6 +1,8 @@
 from data_processing import processing
 from sklearn.feature_extraction.text import TfidfVectorizer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from collections import Counter
+import matplotlib.pyplot as plt
 
 class YouTubeCommentAnalyzer:
 
@@ -8,6 +10,7 @@ class YouTubeCommentAnalyzer:
        
         self.comments = processing.DataCleaning(website).sentence_tokenize() 
         self.labels = ['positive', 'neutral', 'negative']
+        self.sentiment_data = self.analyze_sentiment()
 
     def vectorize_data(self, max_features=5000):
 
@@ -30,7 +33,17 @@ class YouTubeCommentAnalyzer:
             else:
                 sentiment_labels.append('neutral')
 
-        return sentiment_labels
-  
-x = YouTubeCommentAnalyzer('https://www.youtube.com/watch?v=5eqRuVp65eY').analyze_sentiment()
-print(x)
+        return Counter(sentiment_labels)
+    
+    def bar_chart_maker(self):
+        sentiment_count = self.sentiment_data
+        print(sentiment_count)
+        sentiments = list(sentiment_count.keys())
+        counts = list(sentiment_count.values())
+
+        plt.figure(figsize=(8, 6))
+        plt.bar(sentiments, counts, color=['red', 'green', 'gray'])
+        plt.title('Sentiment Distribution')
+        plt.xlabel('Sentiment')
+        plt.ylabel('Amount of comments')
+        plt.show()

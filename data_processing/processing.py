@@ -1,4 +1,4 @@
-import api
+from data_processing import api
 import re 
 import emoji
 from urllib.parse import urlparse
@@ -61,6 +61,3 @@ class DataCleaning:
 
         return filtered_sentences
     
-  
-x = DataCleaning('https://www.youtube.com/watch?v=5eqRuVp65eY').sentence_tokenize()
-print(x)
