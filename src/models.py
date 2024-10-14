@@ -1,4 +1,5 @@
 from data_processing import processing
+from data_processing import api
 from sklearn.feature_extraction.text import TfidfVectorizer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from collections import Counter
@@ -11,6 +12,7 @@ class YouTubeCommentAnalyzer:
         self.comments = processing.DataCleaning(website).sentence_tokenize() 
         self.labels = ['positive', 'neutral', 'negative']
         self.sentiment_data = self.analyze_sentiment()
+        self.video_detalis = api.get_video_details()
 
     def vectorize_data(self, max_features=5000):
 
@@ -47,3 +49,9 @@ class YouTubeCommentAnalyzer:
         plt.xlabel('Sentiment')
         plt.ylabel('Amount of comments')
         plt.show()
+
+    def data_connector(self):
+        data = self.video_detalis()
+        data["Result"] = self.sentiment_data
+
+        return data
