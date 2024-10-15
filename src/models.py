@@ -12,7 +12,8 @@ class YouTubeCommentAnalyzer:
         self.comments = processing.DataCleaning(website).sentence_tokenize() 
         self.labels = ['positive', 'neutral', 'negative']
         self.sentiment_data = self.analyze_sentiment()
-        self.video_detalis = api.get_video_details()
+        #self.video_detalis = processing.DataCleaning(website).justfortest()
+        self.video_detalis = processing.DataCleaning(website).otherapidata
 
     def vectorize_data(self, max_features=5000):
 
@@ -51,7 +52,8 @@ class YouTubeCommentAnalyzer:
         plt.show()
 
     def data_connector(self):
-        data = self.video_detalis()
+        data = self.video_detalis
         data["Result"] = self.sentiment_data
 
         return data
+    

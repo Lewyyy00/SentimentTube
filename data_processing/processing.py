@@ -18,6 +18,7 @@ class DataCleaning:
         self.website = website
         video_id = self.get_video_id()
         self.data = api.get_video_comments(video_id)
+        self.otherapidata = api.get_video_details(video_id)
         self.lemmatizer = WordNetLemmatizer()
 
     def get_video_id(self):
@@ -61,3 +62,5 @@ class DataCleaning:
 
         return filtered_sentences
     
+    def justfortest(self):
+        return self.otherapidata
