@@ -1,6 +1,7 @@
 import os
 from googleapiclient.discovery import build 
 from dotenv import load_dotenv
+import isodate
 
 load_dotenv()
 
@@ -31,15 +32,17 @@ def get_video_comments(video_id, max_results=100):
 def get_video_details(video_id):
 
     request = youtube.videos().list(
-        part="snippet,statistics",
+        part="snippet,statistics,contentDetails",
         id=video_id
     )
     response = request.execute()
 
     if response['items']:
         video_info = response['items'][0]
-
+        print(video_id)
         title = video_info['snippet']['title']
+        duration = isodate.parse_duration(video_info['contentDetails'].get('duration', 0))
+        
         likes = video_info['statistics'].get('likeCount', 0)
         dislikes = video_info['statistics'].get('dislikeCount', 0)
         views = video_info['statistics'].get('viewCount', 0)
@@ -48,6 +51,7 @@ def get_video_details(video_id):
         results = {
             'title': title,
             'likes': likes,
+            'duration': duration,
             #'dislikes': dislikes,
             'views': views,
             'comment_count': comment_count
