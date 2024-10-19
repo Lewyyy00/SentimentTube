@@ -61,3 +61,23 @@ def get_video_details(video_id):
     else:
         return None
     
+
+def get_playlist_videos(playlist_id):
+    request = youtube.playlistItems().list(
+        part='snippet',
+        playlistId=playlist_id,
+        maxResults=500
+    )
+    
+    response = request.execute()
+    print(response)
+    
+    video_urls = []
+    for item in response['items']:
+        video_id = item['snippet']['resourceId']['videoId']
+        video_urls.append(f'https://www.youtube.com/watch?v={video_id}')
+    
+    return video_urls
+
+
+    
