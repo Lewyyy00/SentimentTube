@@ -23,7 +23,7 @@ class DataCollector:
         neutral = result.get('neutral', 0)
         negative = result.get('negative', 0)
 
-        with open(self.filename, mode='a+', newline='', encoding='utf-8') as file:
+        with open(self.csv_filename, mode='a+', newline='', encoding='utf-8') as file:
 
             writer = csv.writer(file)
             file.seek(0)
