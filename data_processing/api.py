@@ -2,6 +2,7 @@ import os
 from googleapiclient.discovery import build 
 from dotenv import load_dotenv
 import isodate
+import requests
 
 load_dotenv()
 
@@ -77,5 +78,17 @@ def get_playlist_videos(playlist_id):
     
     return video_urls
 
-
+def get_youtube_search_result(query, api_key = API_KEY, max_results=10):
     
+    url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&q={query}&maxResults={max_results}&type=video&key={api_key}"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        results = response.json().get('items', []) #if error then []
+        links = [item['id']['videoId'] for item in results]
+        return links
+    
+    else:
+        f'error:{response.status_code}'
+
+   
