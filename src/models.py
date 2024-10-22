@@ -8,12 +8,11 @@ import matplotlib.pyplot as plt
 class YouTubeCommentAnalyzer:
 
     def __init__(self, website):
-       
-        self.comments = processing.DataCleaning(website).sentence_tokenize() 
-        self.labels = ['positive', 'neutral', 'negative']
+
+        self.data_cleanner = processing.DataCleaning(website)
+        self.comments = self.data_cleanner.sentence_tokenize() 
         self.sentiment_data = self.analyze_sentiment()
-        #self.video_detalis = processing.DataCleaning(website).justfortest()
-        self.video_detalis = processing.DataCleaning(website).otherapidata
+        self.video_detalis = self.data_cleanner.otherapidata
 
     def vectorize_data(self, max_features=5000):
 
@@ -50,6 +49,7 @@ class YouTubeCommentAnalyzer:
         plt.xlabel('Sentiment')
         plt.ylabel('Amount of comments')
         plt.show()
+        plt.close()
 
     def data_connector(self):
         data = self.video_detalis
