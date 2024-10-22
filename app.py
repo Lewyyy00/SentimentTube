@@ -1,11 +1,21 @@
 from src.models import *
 from src.data_collector import *
+from flask import Flask, render_template, request 
 
 
-"""x = YouTubeCommentAnalyzer('https://www.youtube.com/watch?v=bbmnh4r0Su0').data_connector()
-print(x)"""
+app = Flask(__name__, template_folder=os.path.join('src', 'templates'))
 
-x = DataCollector().delate_csv()
+@app.route('/')
+def home():
+    
+    return render_template('index.html')
 
+@app.route("/", methods=['POST'])
+def collected_list():
 
+    query = request.form.get('query', '')
+    videos = api.get_youtube_search_result(query)
+    return render_template('index.html', videos=videos)
 
+if __name__ == '__main__':
+    app.run(debug=True)
