@@ -10,6 +10,7 @@ class YouTubeCommentAnalyzer:
     def __init__(self, website):
 
         self.data_cleanner = processing.DataCleaning(website)
+        self.analyser = SentimentIntensityAnalyzer()
         self.comments = self.data_cleanner.sentence_tokenize() 
         self.sentiment_data = self.analyze_sentiment()
         self.video_detalis = self.data_cleanner.otherapidata
@@ -22,12 +23,11 @@ class YouTubeCommentAnalyzer:
         return tfidf_matrix
     
     def analyze_sentiment(self):
-      
-        analyzer = SentimentIntensityAnalyzer()
+
         sentiment_labels = []
 
         for comment in self.comments:
-            sentiment_scores = analyzer.polarity_scores(comment)
+            sentiment_scores = self.analyser.polarity_scores(comment)
             if sentiment_scores['compound'] >= 0.05:
                 sentiment_labels.append('positive')
             elif sentiment_scores['compound'] <= -0.05:
@@ -38,6 +38,7 @@ class YouTubeCommentAnalyzer:
         return Counter(sentiment_labels)
     
     def bar_chart_maker(self):
+
         sentiment_count = self.sentiment_data
         print(sentiment_count)
         sentiments = list(sentiment_count.keys())
@@ -52,8 +53,11 @@ class YouTubeCommentAnalyzer:
         plt.close()
 
     def data_connector(self):
+
         data = self.video_detalis
         data["Result"] = self.sentiment_data
 
         return data
+    
+     
     

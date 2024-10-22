@@ -2,11 +2,10 @@ from src.models import *
 from src.data_collector import *
 
 
-x = api.get_playlist_videos('PLF3psEbJ1sPYg8Zqw__Jv48Cr6w9xUqss')
+"""x = YouTubeCommentAnalyzer('https://www.youtube.com/watch?v=bbmnh4r0Su0').data_connector()
+print(x)"""
 
-for i in x:
+x = DataCollector().delate_csv()
 
-    y = YouTubeCommentAnalyzer(f"{i}").data_connector()
 
-    csv_writer = DataCollector('youtube_data.csv')
-    csv_writer.write_to_csv(y)
+

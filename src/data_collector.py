@@ -32,3 +32,16 @@ class DataCollector:
             
             writer.writerow([title, likes, duration, views, comment_count, positive, neutral, negative])
 
+    def delate_csv(self):
+
+        csv_path = 'ML-project\data\youtube_data.csv'
+
+        if(os.path.exists(csv_path) and os.path.isfile(csv_path)):
+            os.remove(csv_path) 
+            print("file deleted") 
+        else: 
+            print("file not found") 
+
+
+
+
