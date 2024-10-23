@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 
 class YouTubeCommentAnalyzer:
 
-    def __init__(self, website):
+    def __init__(self, video_id):
 
-        self.data_cleanner = processing.DataCleaning(website)
+        self.data_cleanner = processing.DataCleaning(video_id)
         self.analyser = SentimentIntensityAnalyzer()
         self.comments = self.data_cleanner.sentence_tokenize() 
         self.sentiment_data = self.analyze_sentiment()

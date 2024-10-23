@@ -15,7 +15,15 @@ def collected_list():
 
     query = request.form.get('query', '')
     videos = api.get_youtube_search_result(query)
-    return render_template('index.html', videos=videos)
+    disc_results = {}
+
+    for i in videos:
+        result = YouTubeCommentAnalyzer(i).data_connector()
+        key = f"https://www.youtube.com/watch?v={i}"
+        disc_results[key] = result['Result']
+
+
+    return render_template('index.html', disc_results=disc_results)
 
 if __name__ == '__main__':
     app.run(debug=True)

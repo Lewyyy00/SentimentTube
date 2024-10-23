@@ -14,9 +14,10 @@ nltk.download('wordnet')
 
 class DataCleaning:
 
-    def __init__(self, website):
-        self.website = website
-        video_id = self.get_video_id()
+    def __init__(self, video_id):
+        #self.website = website
+        #video_id = self.get_video_id()
+        self.video_id = video_id
         self.data = api.get_video_comments(video_id)
         self.otherapidata = api.get_video_details(video_id)
         self.lemmatizer = WordNetLemmatizer()
