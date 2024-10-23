@@ -20,7 +20,7 @@ def collected_list():
     for i in videos:
         result = YouTubeCommentAnalyzer(i).data_connector()
         key = f"https://www.youtube.com/watch?v={i}"
-        disc_results[key] = result['Result']
+        disc_results[key] = result
 
 
     return render_template('index.html', disc_results=disc_results)

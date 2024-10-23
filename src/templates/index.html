@@ -17,18 +17,36 @@
 
     <!-- results section -->
     {% if disc_results %}
-    <h2>Search Results:</h2>
+    <h2>Video Results</h2>
     <table border="1">
-        <tr>
-            <th>Key</th>
-            <th>Value</th>
-        </tr>
-        {% for key, value in disc_results.items() %}
-        <tr>
-            <td>{{ key }}</td>
-            <td>{{ value }}</td>
-        </tr>
-        {% endfor %}
+        <thead>
+            <tr>
+                <th>Video URL</th>
+                <th>Title</th>
+                <th>Likes</th>
+                <th>Duration</th>
+                <th>Views</th>
+                <th>Comment Count</th>
+                <th>Positive Comments</th>
+                <th>Neutral Comments</th>
+                <th>Negative Comments</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for url, details in disc_results.items() %}
+            <tr>
+                <td><a href="{{ url }}">{{ url }}</a></td>
+                <td>{{ details['title'] }}</td>
+                <td>{{ details['likes'] }}</td>
+                <td>{{ details['duration'] }}</td>
+                <td>{{ details['views'] }}</td>
+                <td>{{ details['comment_count'] }}</td>
+                <td>{{ details['Result'].get('positive', 0) }}</td>
+                <td>{{ details['Result'].get('neutral', 0) }}</td>
+                <td>{{ details['Result'].get('negative', 0) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
 {% endif %}
 </body>
