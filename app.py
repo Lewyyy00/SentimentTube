@@ -4,7 +4,10 @@ from flask import Flask, render_template, request
 from collections import OrderedDict
 
 
-app = Flask(__name__, template_folder=os.path.join('src', 'templates'))
+app = Flask(__name__, 
+            static_folder=os.path.join('src', 'static'),  
+            template_folder=os.path.join('src', 'templates')
+            )
 
 @app.route('/')
 def home():
