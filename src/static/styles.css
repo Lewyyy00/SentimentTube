@@ -99,3 +99,7 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+.search-button {
+    margin-top: 80px; 
+}
