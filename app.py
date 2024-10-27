@@ -17,7 +17,8 @@ def home():
 def collected_list():
 
     query = request.form.get('query', '')
-    videos = api.get_youtube_search_result(query)
+    max_results = int(request.form.get('max_results', 10))
+    videos = api.get_youtube_search_result(query, max_results=max_results)
     disc_results = {}
 
     for i in videos:

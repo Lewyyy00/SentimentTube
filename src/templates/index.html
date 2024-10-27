@@ -13,6 +13,14 @@
     <form action="/" method="POST">
         <label for="query">Enter search query:</label>
         <input type="text" id="query" name="query" placeholder="Search YouTube..." required>
+    
+        <label for="max_results">Pick max search results:</label>
+        <select id="max_results" name="max_results">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+        </select>
+        
         <button type="submit">Search</button>
     </form>
 
