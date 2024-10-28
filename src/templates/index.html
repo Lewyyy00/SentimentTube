@@ -27,10 +27,10 @@
     <!-- results section -->
     {% if disc_results %}
     <h2>Video Results</h2>
-    <table border="1">
+    <table>
         <thead>
             <tr>
-                <th>Video URL</th>
+                <th>Thumbnail</th>
                 <th>Title</th>
                 <th>Likes</th>
                 <th>Duration</th>
@@ -44,7 +44,15 @@
         <tbody>
             {% for url, details in disc_results.items() %}
             <tr>
-                <td><a href="{{ url }}">{{ url }}</a></td>
+                <!-- Thumbnail -->
+                <td>
+                    {% set video_id = url.split('v=')[1] %}
+                    <a href="{{ url }}" target="_blank">
+                        <img src="https://img.youtube.com/vi/{{ video_id }}/mqdefault.jpg" alt="Video Thumbnail" width="250">
+                    </a>
+                </td>
+                
+                <!-- Video Details -->
                 <td>{{ details['title'] }}</td>
                 <td>{{ details['likes'] }}</td>
                 <td>{{ details['duration'] }}</td>
@@ -57,6 +65,6 @@
             {% endfor %}
         </tbody>
     </table>
-{% endif %}
+    {% endif %}
 </body>
 </html>

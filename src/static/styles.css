@@ -103,3 +103,9 @@ a:hover {
 .search-button {
     margin-top: 80px; 
 }
+
+td img {
+    width: 200px; 
+    height: auto; 
+    border-radius: 5px;
+}
