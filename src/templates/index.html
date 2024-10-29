@@ -39,6 +39,7 @@
                 <th>Positive Comments</th>
                 <th>Neutral Comments</th>
                 <th>Negative Comments</th>
+                <th>Engagement</th>
             </tr>
         </thead>
         <tbody>
@@ -61,6 +62,7 @@
                 <td>{{ details['Result'].get('positive', 0) }}</td>
                 <td>{{ details['Result'].get('neutral', 0) }}</td>
                 <td>{{ details['Result'].get('negative', 0) }}</td>
+                <td>{{ details['Engagement'] }}</td>
             </tr>
             {% endfor %}
         </tbody>
