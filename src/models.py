@@ -11,12 +11,13 @@ class YouTubeCommentAnalyzer:
 
     def __init__(self, video_id):
 
+        self.max_workers = os.cpu_count()
         self.data_cleanner = processing.DataCleaning(video_id)
         self.analyser = SentimentIntensityAnalyzer()
         self.comments = self.data_cleanner.sentence_tokenize() 
         self.sentiment_data = self.analyze_sentiment()
         self.video_detalis = self.data_cleanner.otherapidata
-        #self.max_workers = os.cpu_count()
+        
 
     def vectorize_data(self, max_features=5000):
 
@@ -39,7 +40,7 @@ class YouTubeCommentAnalyzer:
                 sentiment_labels.append('neutral')
 
         with ThreadPoolExecutor(max_workers=10) as executor:
-            
+            print(self.max_workers)
             futures = {executor.submit(analyze_comment, comment): comment for comment in self.comments}
 
             for future in as_completed(futures):
@@ -71,7 +72,7 @@ class YouTubeCommentAnalyzer:
 
         data = self.video_detalis
         data["Result"] = self.sentiment_data
-        data['Engagement'] = round((int(data['likes']) * 0.49 + int(data['views']) * 0.02 + int(data['comment_count']) * 0.49) / 3, 1) #vievs are not as important as likes or comments 
+        data['Engagement'] = round((int(data['likes']) * 0.499 + int(data['views']) * 0.002 + int(data['comment_count']) * 0.499) / 3, 1) #vievs are not as important as likes or comments 
 
         return data
     

@@ -2,7 +2,7 @@ from src.models import *
 from src.data_collector import *
 from flask import Flask, render_template, request 
 from collections import OrderedDict
-
+import time
 
 app = Flask(__name__, 
             static_folder=os.path.join('src', 'static'),  
@@ -22,9 +22,16 @@ def collected_list():
     disc_results = {}
 
     for i in videos:
+        start_time = time.time()
+
         result = YouTubeCommentAnalyzer(i).data_connector()
         key = f"https://www.youtube.com/watch?v={i}"
         disc_results[key] = result
+
+        end_time = time.time() 
+        iteration_time = end_time - start_time
+        print(f"{i}: {iteration_time:.4f}s")
+
     print(disc_results)
 
     sorted_disc_results = OrderedDict(sorted(disc_results.items(), key=lambda x: x[1]['Engagement'], reverse=True))

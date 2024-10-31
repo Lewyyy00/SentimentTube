@@ -10,7 +10,7 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
-def get_video_comments(video_id, max_results=100):
+def get_video_comments(video_id, max_results=500):
 
     try:
         comments = []
