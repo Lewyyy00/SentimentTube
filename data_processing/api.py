@@ -8,22 +8,18 @@ import asyncio
 import aiohttp
 
 load_dotenv()
+API_KEY = os.getenv("API_KEY")
+youtube = build('youtube', 'v3', developerKey=API_KEY)
 
 
-
-class YouTubeAPIClient: 
-
-    def __init__(self, video_id) -> None:
+class YouTubeAPIClient:
+    def __init__(self, video_id):
         self.video_id = video_id
-        API_KEY = os.getenv("API_KEY")
-        self.youtube = build('youtube', 'v3', developerKey=API_KEY)
-        pass
-
+   
     def get_video_comments(self, max_results=100):
-
         try:
             comments = []
-            request = self.youtube.commentThreads().list(
+            request = youtube.commentThreads().list(
                 part='snippet',
                 videoId=self.video_id,
                 maxResults=max_results,
@@ -37,17 +33,17 @@ class YouTubeAPIClient:
                     comment = item['snippet']['topLevelComment']['snippet']['textDisplay']
                     comments.append(comment)
                     
-                request = self.youtube.commentThreads().list_next(request, response)
+                request = youtube.commentThreads().list_next(request, response)
                 
         except HttpError as e:
             if e.resp.status == 403 and "commentsDisabled" in str(e):
                 print("Comments are disabled for this video.")
-
+                
         return comments
 
     def get_video_details(self):
 
-        request = self.youtube.videos().list(
+        request = youtube.videos().list(
             part="snippet,statistics,contentDetails",
             id=self.video_id
         )
@@ -78,7 +74,7 @@ class YouTubeAPIClient:
             return None
         
     def get_playlist_videos(self,playlist_id):
-        request = self.youtube.playlistItems().list(
+        request = youtube.playlistItems().list(
             part='snippet',
             playlistId=playlist_id,
             maxResults=500

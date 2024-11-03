@@ -1,4 +1,4 @@
-from data_processing import api
+from data_processing.api import *
 import re 
 import emoji
 from urllib.parse import urlparse
@@ -18,8 +18,9 @@ class DataCleaning:
         #self.website = website
         #video_id = self.get_video_id()
         self.video_id = video_id
-        self.data = api.get_video_comments(video_id)
-        self.otherapidata = api.get_video_details(video_id)
+        youtube_client = YouTubeAPIClient(video_id)
+        self.data = youtube_client.get_video_comments()
+        self.otherapidata = youtube_client.get_video_details()
         self.lemmatizer = WordNetLemmatizer()
 
     def get_video_id(self):

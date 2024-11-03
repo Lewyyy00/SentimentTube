@@ -2,6 +2,7 @@ from src.models import *
 from src.data_collector import *
 from flask import Flask, render_template, request 
 from collections import OrderedDict
+from data_processing.api import *
 import time
 
 app = Flask(__name__, 
@@ -18,7 +19,7 @@ def collected_list():
 
     query = request.form.get('query', '')
     max_results = int(request.form.get('max_results', 10))
-    videos = api.get_youtube_search_result(query, max_results=max_results)
+    videos = YouTubeAPIClient.get_youtube_search_result(query, max_results=max_results)
     disc_results = {}
 
     for i in videos:
