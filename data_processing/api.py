@@ -12,11 +12,17 @@ API_KEY = os.getenv("API_KEY")
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
 
+
 class YouTubeAPIClient:
     def __init__(self, video_id):
         self.video_id = video_id
    
     def get_video_comments(self, max_results=100):
+        self.youtube = build('youtube', 'v3', developerKey=API_KEY)
+        pass
+
+    def get_video_comments(self, max_results=100):
+
         try:
             comments = []
             request = youtube.commentThreads().list(
