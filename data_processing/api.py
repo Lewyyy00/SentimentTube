@@ -8,6 +8,7 @@ import asyncio
 import aiohttp
 
 load_dotenv()
+API_KEY = os.getenv("API_KEY")
 
 
 
@@ -15,11 +16,10 @@ class YouTubeAPIClient:
 
     def __init__(self, video_id) -> None:
         self.video_id = video_id
-        API_KEY = os.getenv("API_KEY")
         self.youtube = build('youtube', 'v3', developerKey=API_KEY)
         pass
 
-    def get_video_comments(self, max_results=100):
+    async def get_video_comments(self, max_results=100):
 
         try:
             comments = []
