@@ -72,7 +72,7 @@ class YouTubeCommentAnalyzer:
 
         data = self.video_detalis
         data["Result"] = self.sentiment_data
-        data['Engagement'] = round((int(data['likes']) * 0.499 + int(data['views']) * 0.002 + int(data['comment_count']) * 0.499) / 3, 1) #vievs are not as important as likes or comments 
+        data['Engagement'] = round((int(data['likes']) * 0.499 + int(data['comment_count']) * 0.499) / int(data['views']) * 0.002, 5) #vievs are not as important as likes or comments 
 
         return data
     

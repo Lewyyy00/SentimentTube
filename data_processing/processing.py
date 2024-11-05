@@ -15,8 +15,6 @@ nltk.download('wordnet')
 class DataCleaning:
 
     def __init__(self, video_id):
-        #self.website = website
-        #video_id = self.get_video_id()
         self.video_id = video_id
         youtube_client = YouTubeAPIClient(video_id)
         self.data = youtube_client.get_video_comments()
@@ -64,5 +62,3 @@ class DataCleaning:
 
         return filtered_sentences
     
-    def justfortest(self):
-        return self.otherapidata
