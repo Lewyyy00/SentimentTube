@@ -33,8 +33,6 @@ def collected_list():
         iteration_time = end_time - start_time
         print(f"{i}: {iteration_time:.4f}s")
 
-    print(disc_results)
-
     sorted_disc_results = OrderedDict(sorted(disc_results.items(), key=lambda x: x[1]['Engagement'], reverse=True))
     return render_template('index.html', disc_results=sorted_disc_results)
 

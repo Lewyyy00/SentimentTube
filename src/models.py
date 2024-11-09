@@ -6,6 +6,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from collections import Counter
 import matplotlib.pyplot as plt
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import math
 
 class YouTubeCommentAnalyzer:
 
@@ -71,8 +72,9 @@ class YouTubeCommentAnalyzer:
     def data_connector(self):
 
         data = self.video_detalis
+        print(data)
         data["Result"] = self.sentiment_data
-        data['Engagement'] = round((int(data['likes']) * 0.499 + int(data['comment_count']) * 0.499) / int(data['views']) * 0.002, 5) #vievs are not as important as likes or comments 
+        data['Engagement'] = round((int(data['likes']) /  int(data['views']) + int(data['Results']['positive']) / int(data['comment_count']) + int(data['Results']['negative']) / int(data['comment_count']) ) + math.log(int(data['views'])) * 0.002, 5) #vievs are not as important as likes or comments 
 
         return data
     
