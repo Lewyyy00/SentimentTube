@@ -69,12 +69,15 @@ class YouTubeCommentAnalyzer:
         plt.show()
         plt.close()
 
-    def data_connector(self):
+    def data_connector(self, w1 = 0.5, w2 = 1.5, w3 = 1.5, w4 = 0.002):
 
         data = self.video_detalis
         print(data)
         data["Result"] = self.sentiment_data
-        data['Engagement'] = round((int(data['likes']) /  int(data['views']) + int(data['Results']['positive']) / int(data['comment_count']) + int(data['Results']['negative']) / int(data['comment_count']) ) + math.log(int(data['views'])) * 0.002, 5) #vievs are not as important as likes or comments 
+        data['Engagement'] = round(((int(data['likes']) /  int(data['views'])) * w1 + 
+                                    (int(data['Result'].get('positive', 0)) / int(data['comment_count'])) * w2 + 
+                                    (int(data['Result'].get('negative', 0)) / int(data['comment_count']))) * w3 + 
+                                    math.log(int(data['views'])) * w4, 5) #vievs are not as important as likes or comments 
 
         return data
     
