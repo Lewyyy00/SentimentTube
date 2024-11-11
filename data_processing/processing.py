@@ -14,6 +14,14 @@ nltk.download('wordnet')
 
 class DataCleaning:
 
+    """
+    The DataCleaning class is designed to process and clean YouTube video comment data, preparing it for further analysis. 
+    Basically, the whole class is a sequence of cleaning methods and includes methods to standardize text by applying lowercasing, 
+    removing punctuation, eliminating stop words, and lemmatizing terms for consistency. The method sentence_tokenize, which is 
+    implemented below, is responsible for tokenizing comments.
+
+    """
+
     def __init__(self, video_id):
         self.video_id = video_id
         youtube_client = YouTubeAPIClient(video_id)

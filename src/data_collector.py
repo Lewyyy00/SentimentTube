@@ -6,6 +6,12 @@ import os
 
 class DataCollector:
 
+    """
+    The DataCollector was designed to save data into a CSV file. It was created because, in the beginning, I planned to implement more ML elements 
+    into the project, and I might still do so in the future. Right now, there is no use for this class in the current project.
+    
+    """
+
     def __init__(self, csv_filename='youtube_data.csv'):
        
         self.csv_filename = csv_filename

@@ -12,6 +12,15 @@ API_KEY = os.getenv("API_KEY")
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
 class YouTubeAPIClient:
+    
+    """
+    The YouTubeAPIClient class interacts with the YouTube API to retrieve video details, comments, playlist videos, and search results. 
+    It provides methods to gather comments from specific videos, fetch various statistics like views and likes, retrieve video URLs from 
+    playlists, and conduct YouTube search queries. 
+    
+    This class requires a video ID or playlist ID as input to operate.
+    
+    """
     def __init__(self, video_id):
         self.video_id = video_id
         
@@ -51,7 +60,6 @@ class YouTubeAPIClient:
 
         if response['items']:
             video_info = response['items'][0]
-            print(self.video_id)
             title = video_info['snippet']['title']
             duration = isodate.parse_duration(video_info['contentDetails'].get('duration', 0))
             
