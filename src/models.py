@@ -10,6 +10,17 @@ import math
 
 class YouTubeCommentAnalyzer:
 
+    """
+    This class contains a set of methods that are used to perform sentiment analysis. It also calculates engagement metrics based on video details 
+    and sentiment data to assess the video's potential quality.
+    
+    """
+
+    WEIGHT_LIKES_VIEWS = 0.5 
+    WEIGHT_POSITIVE = 1.5  
+    WEIGHT_NEGATIVE = 1.5 
+    WEIGHT_LOG_VIEWS = 0.002
+
     def __init__(self, video_id):
 
         self.max_workers = os.cpu_count()
@@ -22,10 +33,8 @@ class YouTubeCommentAnalyzer:
 
     def vectorize_data(self, max_features=5000):
 
-        self.vectorizer = TfidfVectorizer(max_features=max_features)
-        tfidf_matrix = self.vectorizer.fit_transform(self.comments)
-        
-        return tfidf_matrix
+        vectorizer = TfidfVectorizer(max_features=max_features)        
+        return vectorizer.fit_transform(self.comments)
     
     def analyze_sentiment(self):
         
@@ -41,7 +50,6 @@ class YouTubeCommentAnalyzer:
                 sentiment_labels.append('neutral')
 
         with ThreadPoolExecutor(max_workers=10) as executor:
-            print(self.max_workers)
             futures = {executor.submit(analyze_comment, comment): comment for comment in self.comments}
 
             for future in as_completed(futures):
@@ -57,7 +65,6 @@ class YouTubeCommentAnalyzer:
     def bar_chart_maker(self):
 
         sentiment_count = self.sentiment_data
-        print(sentiment_count)
         sentiments = list(sentiment_count.keys())
         counts = list(sentiment_count.values())
 
@@ -69,15 +76,14 @@ class YouTubeCommentAnalyzer:
         plt.show()
         plt.close()
 
-    def data_connector(self, w1 = 0.5, w2 = 1.5, w3 = 1.5, w4 = 0.002):
+    def data_connector(self):
 
         data = self.video_detalis
-        print(data)
         data["Result"] = self.sentiment_data
-        data['Engagement'] = round(((int(data['likes']) /  int(data['views'])) * w1 + 
-                                    (int(data['Result'].get('positive', 0)) / int(data['comment_count'])) * w2 + 
-                                    (int(data['Result'].get('negative', 0)) / int(data['comment_count']))) * w3 + 
-                                    math.log(int(data['views'])) * w4, 5) #vievs are not as important as likes or comments 
+        data['Engagement'] = round(((int(data['likes']) /  int(data['views'])) * self.WEIGHT_LIKES_VIEWS + 
+                                    (int(data['Result'].get('positive', 0)) / int(data['comment_count'])) * self.WEIGHT_POSITIVE + 
+                                    (int(data['Result'].get('negative', 0)) / int(data['comment_count']))) * self.WEIGHT_NEGATIVE + 
+                                    math.log(int(data['views'])) * self.WEIGHT_LOG_VIEWS, 5) #vievs are not as important as likes or comments 
 
         return data
     
