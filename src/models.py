@@ -80,10 +80,15 @@ class YouTubeCommentAnalyzer:
 
         data = self.video_detalis
         data["Result"] = self.sentiment_data
-        data['Engagement'] = round(((int(data['likes']) /  int(data['views'])) * self.WEIGHT_LIKES_VIEWS + 
-                                    (int(data['Result'].get('positive', 0)) / int(data['comment_count'])) * self.WEIGHT_POSITIVE + 
-                                    (int(data['Result'].get('negative', 0)) / int(data['comment_count']))) * self.WEIGHT_NEGATIVE + 
-                                    math.log(int(data['views'])) * self.WEIGHT_LOG_VIEWS, 5) #vievs are not as important as likes or comments 
+
+        comment_count = int(data['comment_count']) if int(data['comment_count']) > 0 else 1
+        views = int(data['views']) if int(data['views']) > 0 else 1
+        likes = int(data['likes']) if int(data['likes']) > 0 else 1
+
+        data['Engagement'] = round(((likes / views) * self.WEIGHT_LIKES_VIEWS + 
+                                    (int(data['Result'].get('positive', 0)) / comment_count) * self.WEIGHT_POSITIVE + 
+                                    (int(data['Result'].get('negative', 0)) / comment_count)) * self.WEIGHT_NEGATIVE + 
+                                    math.log(views) * self.WEIGHT_LOG_VIEWS, 5) #vievs are not as important as likes or comments 
 
         return data
     
