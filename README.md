@@ -4,8 +4,31 @@ Have you ever felt like you were wasting a lot of time scrolling through YouTube
 SentimentTube is a Flask-based application designed to help users evaluate the quality and value of YouTube videos by analyzing sentiment from comments. Using Natural Language Processing (NLP) and sentiment analysis, the application processes comments, categorizes them as positive, neutral, or negative, and generates metrics that help determine the overall engagement and sentiment around a video.
 
 ## Table of Contents
-1. [Installation](#installation)
-2. [Usage](#Usage)
+1. [Project structure](#project-structure)
+2. [Installation](#installation)
+3. [Usage](#Usage)
+
+## Project structure
+```
+SentimentTube/
+├── data_processing/
+│   ├── __init__.py     
+│   ├── api.py             # Api processing
+│   └── processing.py      # Contains data processing logic
+├── src/ 
+│   ├── static/     
+│   │   └── styles.css     # CSS template for the main page   
+│   ├── templates/
+│   │   └── index.html     # HTML template for the main page              
+│   ├── __init__.py     
+│   ├── data_collector.py  # Save video's data into CSV (in progress)
+│   └── models.py          # A set of methods used to perform sentiment analysis
+├── .env                   # Api key storage location
+├── README.md              # Project documentation 
+├── requirements.txt       # Python dependencies
+├── app.py                 # Main application file (Flask app)
+└── .gitignore             # Git ignore file
+```
 
 ## Installation
 
@@ -47,3 +70,5 @@ SentimentTube is a Flask-based application designed to help users evaluate the q
     ```
 
 6. The application should now be running at `http://127.0.0.1:5000/`.
+
+## Usage
