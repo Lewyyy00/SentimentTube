@@ -16,10 +16,10 @@ class YouTubeCommentAnalyzer:
     
     """
 
-    WEIGHT_LIKES_VIEWS = 0.5 
+    WEIGHT_LIKES_VIEWS = 0.1 
     WEIGHT_POSITIVE = 1.5  
     WEIGHT_NEGATIVE = 1.5 
-    WEIGHT_LOG_VIEWS = 0.002
+    WEIGHT_LOG_VIEWS = 0.002 #vievs are not as important as likes or comments 
 
     def __init__(self, video_id):
 
@@ -88,7 +88,7 @@ class YouTubeCommentAnalyzer:
         data['Engagement'] = round(((likes / views) * self.WEIGHT_LIKES_VIEWS + 
                                     (int(data['Result'].get('positive', 0)) / comment_count) * self.WEIGHT_POSITIVE + 
                                     (int(data['Result'].get('negative', 0)) / comment_count)) * self.WEIGHT_NEGATIVE + 
-                                    math.log(views) * self.WEIGHT_LOG_VIEWS, 5) #vievs are not as important as likes or comments 
+                                    math.log(views) * self.WEIGHT_LOG_VIEWS, 5) 
 
         return data
     
