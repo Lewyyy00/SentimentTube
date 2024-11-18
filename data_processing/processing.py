@@ -29,13 +29,6 @@ class DataCleaning:
         self.otherapidata = youtube_client.get_video_details()
         self.lemmatizer = WordNetLemmatizer()
 
-    def get_video_id(self):
-        parsed_url = urlparse(self.website)
-
-        data = parsed_url.query
-        data = data.replace('v=', '')        
-        return data   
-
     def clean_data(self):
         clean_data =[]
 
@@ -45,7 +38,6 @@ class DataCleaning:
             preprocessed_text = re.sub(r'\b\w{1}\b', '', preprocessed_text)  
             preprocessed_text = re.sub(r'\s+', ' ', preprocessed_text)  
             preprocessed_text = re.sub(r'[^\w\s]', '', preprocessed_text) 
-
             preprocessed_text = emoji.replace_emoji(preprocessed_text, replace='')
             preprocessed_text = re.sub(r'http\S+|www.\S+', '', preprocessed_text)
             
