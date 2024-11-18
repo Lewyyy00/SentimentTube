@@ -75,3 +75,8 @@ SentimentTube/
 
 ## Usage
 Basically, after launching the app, all you have to do is write a query with keywords and wait for the results. The app includes an engagement metric that can indicate the best score, but you can evaluate the results yourself and, for example, choose the video with the highest number of positive comments. 
+
+
+
+https://github.com/user-attachments/assets/9d770b0b-2217-4509-a575-4f8157a393d3
+
